@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<block>
+  <name>Convolutional encoder</name>
+  <key>fec_encode_convolutional_27_bb</key>
+  <category>FEC_meteo</category>
+  <import>import fec</import>
+  <make>fec.encode_convolutional_27_bb()</make>
+
+	<sink>
+		<name>in</name>
+		<type>byte</type>
+	</sink>
+	<source>
+		<name>out</name>
+		<type>byte</type>
+	</source>
+  <doc>
+Convolutional Encoder, rate 1/2, k=7
+
+Input are stream of packed bits into bytes.
+
+Output are bytes but they are symbols (one bit in byte in LSB).
+
+For every one input byte produce 16 output bytes (symbols).
+
+
+  </doc>
+</block>

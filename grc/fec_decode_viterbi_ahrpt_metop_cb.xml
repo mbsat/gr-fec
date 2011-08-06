@@ -1,0 +1,118 @@
+<?xml version="1.0"?>
+
+<block>
+	<name>MetOp Viterbi decoder</name>
+	<key>fec_decode_viterbi_ahrpt_metop_cb</key>
+        <category>FEC_meteo</category>
+	<import>import fec</import>
+	<make>fec.decode_viterbi_ahrpt_metop_cb($sync_check, $ber_threshold, $insync_after, $outsync_after, $reset_after)</make>
+  <param>
+    	<name>Sync check</name>
+    	<key>sync_check</key>
+    	<value>True</value>
+    	<type>bool</type>
+    	<option>
+		<name>True</name>
+		<key>True</key>
+    	</option>
+    	<option>
+		<name>False</name>
+		<key>False</key>
+    	</option>
+  </param>
+
+  <param>
+    <name>BER threshold</name>
+    <key>ber_threshold</key>
+    <value>0.100</value>
+    <type>real</type>
+        <option>
+	  <name>THRSHLD = 0.100</name>
+	  <key>0.100</key>
+        </option>
+        <option>
+	  <name>THRSHLD = 0.150</name>
+	  <key>0.150</key>
+        </option>
+  </param>
+
+
+  <param>
+    <name>In sync after</name>
+    <key>insync_after</key>
+    <value>5</value>
+    <type>int</type>
+    <option>
+	<name>5 valid BER checks</name>
+	<key>5</key>
+    </option>
+    <option>
+	<name>10 valid BER checks</name>
+	<key>10</key>
+    </option>
+  </param>
+
+  <param>
+    <name>Out of sync after</name>
+    <key>outsync_after</key>
+    <value>5</value>
+    <type>int</type>
+    <option>
+	<name>20 invalid BER checks</name>
+	<key>20</key>
+    </option>
+    <option>
+	<name>40 invalid BER checks</name>
+	<key>40</key>
+    </option>
+  </param>
+
+  <param>
+    <name>Reset decoder after</name>
+    <key>reset_after</key>
+    <value>50</value>
+    <type>int</type>
+    <option>
+	<name>50 invalid BER checks</name>
+	<key>50</key>
+    </option>
+    <option>
+	<name>100 invalid BER checks</name>
+	<key>100</key>
+    </option>
+  </param>
+
+
+	<sink>
+		<name>in</name>
+		<type>complex</type>
+	</sink>
+	<source>
+		<name>out</name>
+		<type>byte</type>
+	</source>
+  <doc>
+MetOp AHRPT soft input convolutional decoder using VITERBI algorithm, rate 3/4, k=7, punctured code.
+It work as continuous decoder without reseting if synced.
+ 
+Input's are complex symbols from QPSK demodulator (clock recovered symbols!).
+
+ 
+Sync check : 
+True >> check decoded data BER during decoding
+False >> don't check
+
+BER threshold : 
+Threshold BER value
+
+In sync after :
+Sync decoder status is set after this number of valid BER's on processing data
+
+Out of sync after :
+Out of sync decoder status is set after this number of invalid BER's on processing data
+
+
+
+
+  </doc>
+</block>
